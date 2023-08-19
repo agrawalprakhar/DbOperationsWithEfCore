@@ -1,10 +1,25 @@
 
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 
 namespace DbOperationsWithEFCoreApp
 {
     public class Program
     {
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            // ...
+
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
